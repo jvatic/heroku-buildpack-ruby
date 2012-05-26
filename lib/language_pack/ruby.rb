@@ -77,9 +77,7 @@ private
   # the relative path to the vendored ruby directory
   # @return [String] resulting path
   def slug_vendor_ruby
-    return @slug_vendor_ruby if @slug_vendor_ruby
-
-    @slug_vendor_ruby = "vendor/#{ruby_version}"
+    "vendor/#{ruby_version}"
   end
 
   # the absolute path of the build ruby to use during the buildpack
@@ -133,8 +131,7 @@ private
   # determine if we're using jruby
   # @return [Boolean] true if we are and false if we aren't
   def ruby_version_jruby?
-    return @ruby_version_jruby if @ruby_version_jruby
-    @ruby_version_jruby = ruby_version ? ruby_version.match(/^jruby-/) : false
+    ruby_version ? ruby_version.match(/^jruby-/) : false
   end
 
   # default JAVA_OPTS
@@ -178,8 +175,7 @@ private
   # determines if a build ruby is required
   # @return [Boolean] true if a build ruby is required
   def build_ruby?
-    return @build_ruby if @build_ruby
-    @build_ruby = !ruby_version_jruby? && ruby_version != "ruby-1.9.3"
+    @build_ruby ||= !ruby_version_jruby? && ruby_version != "ruby-1.9.3"
   end
 
   # install the vendored ruby
