@@ -158,12 +158,14 @@ private
 
   # sets up the environment variables for the build process
   def setup_language_pack_environment
-    setup_ruby_install_env
+    time = Benchmark.realtime { setup_ruby_install_env }
+    puts "  setup_ruby_install_env: #{time}"
 
     default_config_vars.each do |key, value|
       ENV[key] ||= value
     end
-    ENV["GEM_HOME"] = slug_vendor_base
+    time = Benchmark.realtime { ENV["GEM_HOME"] = slug_vendor_base }
+    puts "  slug_vendor_base: #{time}"
     ENV["PATH"]     = "#{ruby_install_binstub_path}:#{default_config_vars["PATH"]}"
   end
 
