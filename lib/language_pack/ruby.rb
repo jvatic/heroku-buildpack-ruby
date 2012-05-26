@@ -161,12 +161,15 @@ private
     time = Benchmark.realtime { setup_ruby_install_env }
     puts "  setup_ruby_install_env: #{time}"
 
-    default_config_vars.each do |key, value|
+    time = Benchmark.realtime { default_config_vars.each do |key, value|
       ENV[key] ||= value
     end
+    }
+    puts "default_config_vars: #{time}"
     time = Benchmark.realtime { ENV["GEM_HOME"] = slug_vendor_base }
     puts "  slug_vendor_base: #{time}"
-    ENV["PATH"]     = "#{ruby_install_binstub_path}:#{default_config_vars["PATH"]}"
+    time = Benchmark.realtime { ENV["PATH"]     = "#{ruby_install_binstub_path}:#{default_config_vars["PATH"]}" }
+    puts "ruby_install_binstub_path + default_config_vars: #{time}"
   end
 
   # determines if a build ruby is required
@@ -232,7 +235,8 @@ ERROR
 
   # setup the environment so we can use the vendored ruby
   def setup_ruby_install_env
-    ENV["PATH"] = "#{ruby_install_binstub_path}:#{ENV["PATH"]}"
+    time = Benchmark.realtime { ENV["PATH"] = "#{ruby_install_binstub_path}:#{ENV["PATH"]}" }
+    puts "ruby_install_binstub_path: #{time}"
 
     if ruby_version_jruby?
       ENV['JAVA_OPTS']  = default_java_opts
