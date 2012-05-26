@@ -161,14 +161,14 @@ private
     time = Benchmark.realtime { setup_ruby_install_env }
     puts "  setup_ruby_install_env: #{time}"
 
-    time = Benchmark.realtime { default_config_vars.each do |key, value|
+    time = Benchmark.realtime { @default_config_vars = default_config_vars.each do |key, value|
       ENV[key] ||= value
     end
     }
     puts "default_config_vars: #{time}"
     time = Benchmark.realtime { ENV["GEM_HOME"] = slug_vendor_base }
     puts "  slug_vendor_base: #{time}"
-    time = Benchmark.realtime { ENV["PATH"]     = "#{ruby_install_binstub_path}:#{default_config_vars["PATH"]}" }
+    time = Benchmark.realtime { ENV["PATH"]     = "#{ruby_install_binstub_path}:#{@default_config_vars["PATH"]}" }
     puts "ruby_install_binstub_path + default_config_vars: #{time}"
   end
 
