@@ -44,11 +44,16 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
 
   def compile
+    require 'benchmark'
+
     Dir.chdir(build_path)
-    install_ruby
-    setup_language_pack_environment
+    time = Benchmark.realtime { install_ruby }
+    topic "install_ruby: #{time}"
+    time = Benchmark.realtime { setup_language_pack_environment }
+    topic "setup_language_pack_environment: #{time}"
     allow_git do
-      install_language_pack_gems
+      time = Benchmark.realtime { install_language_pack_gems }
+      topic "install_language_pack_gems: #{time}"
       build_bundler
       create_database_yml
       install_binaries
