@@ -1,4 +1,5 @@
 require "tmpdir"
+require 'benchmark'
 require "rubygems"
 require "language_pack"
 require "language_pack/base"
@@ -44,8 +45,6 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
 
   def compile
-    require 'benchmark'
-
     Dir.chdir(build_path)
     time = Benchmark.realtime { install_ruby }
     topic "install_ruby: #{time}"
