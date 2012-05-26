@@ -131,7 +131,7 @@ private
   # determine if we're using jruby
   # @return [Boolean] true if we are and false if we aren't
   def ruby_version_jruby?
-    ruby_version ? ruby_version.match(/^jruby-/) : false
+    @ruby_version_jruby ||= ruby_version ? ruby_version.match(/^jruby-/) : false
   end
 
   # default JAVA_OPTS
