@@ -77,7 +77,10 @@ private
   # the relative path to the vendored ruby directory
   # @return [String] resulting path
   def slug_vendor_ruby
-    "vendor/#{ruby_version}"
+    time = Benchmark.realtime { @slug_vendor_ruby = "vendor/#{ruby_version}" }
+    puts "slug_vendor_ruby: #{time}"
+
+    @slug_vendor_ruby
   end
 
   # the absolute path of the build ruby to use during the buildpack
@@ -175,7 +178,10 @@ private
   # determines if a build ruby is required
   # @return [Boolean] true if a build ruby is required
   def build_ruby?
-    !ruby_version_jruby? && ruby_version != "ruby-1.9.3"
+    time = Benchmark.realtime { @build_ruby = value = !ruby_version_jruby? && ruby_version != "ruby-1.9.3" }
+    puts "build_ruby?: #{time}"
+
+    @build_ruby
   end
 
   # install the vendored ruby
