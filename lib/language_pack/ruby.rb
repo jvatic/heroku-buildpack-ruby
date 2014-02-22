@@ -270,7 +270,7 @@ ERROR
   # @param [String] name of the binary package from S3.
   #   Example: https://s3.amazonaws.com/language-pack-ruby/node-0.4.7.tgz, where name is "node-0.4.7"
   def install_binary(name)
-    url = ((name =~ /node/) ? "http://nodejs.org/dist/v0.10.26/node-v#{NODE_VERSION}-linux-x86.tar.gz" : "#{VENDOR_URL}/#{name}.tgz")
+    url = ((name =~ /node/) ? "http://nodejs.org/dist/v0.10.26/node-v#{NODE_VERSION}.tar.gz" : "#{VENDOR_URL}/#{name}.tgz")
     bin_dir = "bin"
     FileUtils.mkdir_p bin_dir
     Dir.chdir(bin_dir) do |dir|
